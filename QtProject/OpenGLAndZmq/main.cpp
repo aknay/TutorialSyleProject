@@ -1,10 +1,9 @@
-#include "scenemodifier.h"
-#include "mainwindow.h"
+#include "SceneModifier.h"
+#include "MainWindow.h"
 #include <QApplication>
-#include <view3d.h>
-
-int main(int argc, char *argv[])
-{
+#include <View3d.h>
+#include <Subscriber.h>
+int main(int argc, char *argv[]){
     QApplication a(argc, argv);
     MainWindow w;
 
@@ -46,10 +45,19 @@ int main(int argc, char *argv[])
     rootEntity->addComponent(frameGraph);
 
     // Scenemodifier
-    SceneModifier *modifier = new SceneModifier(rootEntity);
+    SceneModifier *sceneModifier = new SceneModifier(rootEntity);
 
     // Set root object of the scene
     engine.setRootEntity(rootEntity);
+
+    QThread *thread = new QThread();
+    Subscriber *subscriber= new Subscriber();
+
+    thread->start();
+
+    /*send signal to both slot of window and sceneModifier*/
+    QObject::connect(subscriber, SIGNAL(receivedData(const QList<QByteArray>&)),&w, SLOT(onReceivedData(const QList<QByteArray>&)));
+    QObject::connect(subscriber, SIGNAL(receivedData(const QList<QByteArray>&)),sceneModifier, SLOT(onReceivedData(const QList<QByteArray>&)));
 
     w.show();
     return a.exec();
