@@ -51,7 +51,7 @@ int main(int argc, char *argv[]){
     engine.setRootEntity(rootEntity);
 
     QThread *thread = new QThread();
-    Subscriber *subscriber= new Subscriber();
+    Client *subscriber= new Client();
 
     thread->start();
 

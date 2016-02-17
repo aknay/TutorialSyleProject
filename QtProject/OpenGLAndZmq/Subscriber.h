@@ -7,11 +7,11 @@
 #include <QList>
 
 using namespace nzmqt;
-class Subscriber : public QObject {
+class Client : public QObject {
     Q_OBJECT
 public:
-    explicit Subscriber(QObject *parent = 0);
-    ~Subscriber();
+    explicit Client(QObject *parent = 0);
+    ~Client();
 
 public slots:
     void onMessageReceived(const QList<QByteArray>& message);

@@ -1,6 +1,6 @@
 #include "Subscriber.h"
 
-Subscriber::Subscriber(QObject *parent) :
+Client::Client(QObject *parent) :
     QObject(parent)
 {
     context = nzmqt::createDefaultContext(this);
@@ -11,11 +11,11 @@ Subscriber::Subscriber(QObject *parent) :
     connect(mSocket, SIGNAL(messageReceived(const QList<QByteArray>&)), SLOT(onMessageReceived(const QList<QByteArray>&)));
 
 }
-Subscriber::~Subscriber(){
+Client::~Client(){
 }
 
 
-void Subscriber::onMessageReceived(const QList<QByteArray>& message){
+void Client::onMessageReceived(const QList<QByteArray>& message){
     qDebug() << "Subscriber> " << message;
     /*emit the signal from Subscriber once the signal is received from Socket*/
     emit receivedData(message);
