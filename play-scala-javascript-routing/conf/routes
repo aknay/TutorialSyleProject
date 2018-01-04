@@ -1,0 +1,7 @@
+GET     /                             controllers.HomeController.index
+GET     /person                       controllers.HomeController.getName
+GET     /person/:name                 controllers.HomeController.updateName(name: String)
+GET     /jsr                          controllers.HomeController.jsRoutes
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file                 controllers.Assets.versioned(path="/public", file: Asset)
